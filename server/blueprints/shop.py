@@ -8,11 +8,12 @@ shop_bp = Blueprint('shop', __name__, template_folder='templates/shop')
 @shop_bp.route('/')
 def shop():
     # Example: items = get_all_shop_items()
-    return render_template('shop.html')  # , items=items
+    return render_template('shop/shop.html')  # , items=items
 
 @shop_bp.route('/<int:item_id>')
 def shop_item(item_id):
-    return render_template('shop_item.html', item_id=item_id)
+    item = ShopItem.query.get_or_404(item_id)
+    return render_template('shop/shop_item.html', item=item)
 
 @shop_bp.route('/create', methods=['GET', 'POST'])
 @login_required
@@ -39,7 +40,7 @@ def create_shop_item():
         flash("Shop item created successfully!", "success")
         return redirect(url_for('shop.shop'))
 
-    return render_template("create_shop_item.html", form=form)
+    return render_template("shop/create_shop_item.html", form=form)
 
 @shop_bp.route('/edit/<int:item_id>', methods=['GET', 'POST'])
 @login_required
@@ -65,7 +66,7 @@ def edit_shop_item(item_id):
         flash("Shop item updated successfully!", "success")
         return redirect(url_for('shop.shop'))
 
-    return render_template("edit_shop_item.html", form=form, item=item)
+    return render_template("shop/edit_shop_item.html", form=form, item=item)
 
 @shop_bp.route('/delete/<int:item_id>', methods=['DELETE'])
 @login_required

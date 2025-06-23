@@ -1,0 +1,11 @@
+{% extends 'partials/tile.html' %}
+
+{% set tile_click_behaviour = "window.location.href='" ~ url_for("shop.shop_item", item_id=item.id) ~ "'" %}
+<!-- The HTML for the overview of an event -->
+{% block content %}
+    <span>
+        <h3>{{ item.name }}</h3>
+        <p><b>{{ item.price|format_price }}</b></p>
+    </span>
+
+{% endblock %}

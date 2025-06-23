@@ -1,0 +1,41 @@
+{% extends 'partials/form.html' %}
+{% block fields %}
+    <div class="form-input-collection">
+        <div>
+            <div class="form-input-section">
+                {{ form.title.label }}
+                {{ form.title(size=30, class="form-field") }}
+                {% if form.title.errors %}
+                    <div class="error">
+                        {% for error in form.title.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-input-section">
+                {{ form.summary.label }}
+                {{ form.summary(rows=3, class="form-field") }}
+                {% if form.summary.errors %}
+                    <div class="error">
+                        {% for error in form.summary.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-input-section">
+                {{ form.content.label }}
+                {{ form.content(rows=10, class="form-field") }}
+                {% if form.content.errors %}
+                    <div class="error">
+                        {% for error in form.content.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

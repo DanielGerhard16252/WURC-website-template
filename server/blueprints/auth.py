@@ -49,7 +49,7 @@ def login():
 
         login_user(user, remember=remember == "on")
 
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     
     return render_template("auth/login.html", form=form)
 
@@ -57,7 +57,7 @@ def login():
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     form = RegisterForm()
     
@@ -79,7 +79,7 @@ def register():
 
         login_user(new_user)
 
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     
     return render_template('auth/register.html', form=form)
 
@@ -92,7 +92,7 @@ def logout():
     It then redirects to the index.
     """
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 
 @auth_bp.route('/forgot-password', methods=['GET', 'POST'])

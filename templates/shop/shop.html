@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Shop{% endblock %}
+
+{% block content %}
+    <h1>Shop items</h1>
+    <p>These are the items in our shop</p>
+
+    <div class="tile-list">
+        {% if current_user.is_authenticated %}
+            <p>
+                <a href="{{ url_for('shop.create_shop_item') }}" class="btn btn-primary">Add new item</a>
+            </p>
+        {% endif %}
+        {% for item in items %}
+            {% include "shop/partials/shop_tile.html" %}
+        {% endfor %}
+    </div>
+
+    {% if not items %}
+        <p>No shop items available at the moment.</p>
+    {% endif %}
+{% endblock %}

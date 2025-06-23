@@ -29,8 +29,9 @@ def create_news():
     if form.validate_on_submit():
         title = form.title.data
         content = form.content.data
+        summary = form.summary.data
 
-        new_post = NewsPost(title=title, content=content, creator_id=current_user.id)
+        new_post = NewsPost(title=title, summary=summary, content=content, creator_id=current_user.id)
         db.session.add(new_post)
         db.session.commit()
 

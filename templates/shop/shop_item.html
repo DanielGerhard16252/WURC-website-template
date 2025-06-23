@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ item.name }}</h1>
+
+    <h3>Price: <b>{{ item.price|format_price }}</b></h3>
+
+    {% if current_user.is_authenticated %}
+        <p>
+            <a href="{{ url_for('shop.edit_shop_item', item_id=item.id) }}">Edit this item</a>
+            <a href="{{ url_for('shop.delete_shop_item', item_id=item.id) }}">Delete this item</a>
+        </p>
+        
+    {% endif %}
+
+    <!-- TODO add proper full HTML support -->
+    <p> {{ item.description }}</p>
+
+    <p>
+        <a href="{{ url_for('news.news') }}">Back to news</a>
+    </p>
+
+{% endblock %}

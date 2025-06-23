@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}Create Shop Item{% endblock %}
+{% block content %}
+
+    <h1>Create Shop Item</h1>
+
+    <form method="post" action="{{ url_for('shop.create_shop_item') }}">
+        <fieldset class="box-form-dark">
+            {% include 'shop/partials/create_shop_item' %}
+        </fieldset>
+    </form>
+
+{% endblock %}

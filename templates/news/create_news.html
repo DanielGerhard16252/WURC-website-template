@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Create News Post{% endblock %}
+{% block content %}
+
+    <h1>Create News Post</h1>
+    <p>Share your latest updates and announcements with the community.</p>
+
+    <form method="post" action="{{ url_for('news.create_news') }}">
+        <fieldset class="box-form-dark">
+            {% include 'news/partials/create_news_form.html' %}
+        </fieldset>
+    </form>
+
+{% endblock %}
