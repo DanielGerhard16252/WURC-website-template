@@ -42,6 +42,7 @@ class NewsPost(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
     creator_id = db.Column(db.Integer, db.ForeignKey('admins.id'), nullable=False)
+    creator = db.relationship('Admin', backref=db.backref('news_posts', lazy=True))
     # TODO add image support
 
 class ShopItem(db.Model):
@@ -57,6 +58,7 @@ class ShopItem(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
     creator_id = db.Column(db.Integer, db.ForeignKey('admins.id'), nullable=False)
+    creator = db.relationship('Admin', backref=db.backref('shop_items', lazy=True))
     # TODO add image support, or use a file upload system to store images in a folder and link to them here
 
 

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p class="subtext">
+        Published on {{ post.created_at | format_datetime }}
+        {% if post.updated_at %}
+            <br>Last updated on {{ post.updated_at | format_datetime }}
+        {% endif %}
+    </p>
+
+    {% if current_user.is_authenticated %}
+        <p>
+            <a href="{{ url_for('news.edit_news', post_id=post.id) }}">Edit this post</a>
+            <a href="{{ url_for('news.delete_news', post_id=post.id) }}">Delete this post</a>
+        </p>
+        
+    {% endif %}
+
+    <!-- TODO add proper full HTML support -->
+    <p> {{ post.content }}</p>
+
+    <p>
+        <a href="{{ url_for('news.news') }}">Back to news</a>
+    </p>
+
+{% endblock %}

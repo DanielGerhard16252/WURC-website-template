@@ -7,6 +7,11 @@
     <p>Stay updated with the latest news and announcements.</p>
 
     <div class="tile-list">
+        {% if current_user.is_authenticated %}
+            <p>
+                <a href="{{ url_for('news.create_news') }}" class="btn btn-primary">Create New Post</a>
+            </p>
+        {% endif %}
         {% for post in posts %}
             {% include "news/partials/post_tile.html" %}
         {% endfor %}

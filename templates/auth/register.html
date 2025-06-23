@@ -1,22 +1,15 @@
 {% extends "layout.html" %}
-{% set section_title = "Register" %}
-{% block title %}
-    {{ section_title }}
-{% endblock %}
-
-{% block scripts %}
-    <script src="/static/js/auth/passwordStrengthChecker.js"></script>
-{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block content %}
-    {% set back_url = url_for("events.events") %}
-    {% set back_text = "To events" %}
-    
-    {% include 'partials/layout/section_title.html' %}
 
-    <form  method="post">
+    <p class="text-center">
+        Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>.
+    </p>
+    <form method="post" action="{{ url_for('auth.register') }}">
         <fieldset class="box-form-dark">
             {% include 'auth/partials/register_form.html' %}
+
         </fieldset>
     </form>
 {% endblock %}
