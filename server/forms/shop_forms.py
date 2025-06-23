@@ -11,3 +11,13 @@ class ShopItemForm(FlaskForm):
     # TODO image support
     price = DecimalField('Price:', name="price", validators=[DataRequired(), NumberRange(min=0.010, message="Price must be a positive number")], places=2, rounding=None)
     submit = SubmitField('Submit')
+
+class EditShopItemForm(FlaskForm):
+    """
+    Form for editing existing shop items.
+    """
+    name = StringField('Edit Name:', name="name", validators=[DataRequired(), Length(max=100)])
+    description = StringField('Edit Description:', name="description", validators=[DataRequired()])
+    # TODO image support
+    price = DecimalField('Edit Price:', name="price", validators=[DataRequired(), NumberRange(min=0.010, message="Price must be a positive number")], places=2, rounding=None)
+    submit = SubmitField('Update')

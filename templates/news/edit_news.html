@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Editing news post: {{ post.title }}{% endblock %}
+{% block content %}
+
+    <h1>Editing news post: {{ post.title }}</h1>
+
+    <form method="post" action="{{ url_for('news.edit_news', post_id=post.id) }}">
+        <fieldset class="box-form-dark">
+            {% include 'news/partials/edit_news_form.html' %}
+        </fieldset>
+    </form>
+
+    <a href="{{ url_for('news.delete_news', post_id=post.id) }}" class="btn btn-danger"
+       onclick="return confirm('Are you sure you want to delete this post?');">Delete Post</a>
+
+{% endblock %}

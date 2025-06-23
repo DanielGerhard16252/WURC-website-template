@@ -51,10 +51,6 @@ def edit_shop_item(item_id):
     """
     item = ShopItem.query.get_or_404(item_id)
 
-    if item.creator_id != current_user.id:
-        flash("You do not have permission to edit this shop item.", "danger")
-        return redirect(url_for('shop.shop'))
-
     form = ShopItemForm(obj=item)
 
     if form.validate_on_submit():
@@ -68,17 +64,13 @@ def edit_shop_item(item_id):
 
     return render_template("shop/edit_shop_item.html", form=form, item=item)
 
-@shop_bp.route('/delete/<int:item_id>', methods=['DELETE'])
+@shop_bp.route('/delete/<int:item_id>')
 @login_required
 def delete_shop_item(item_id):
     """
-    DELETE: Deletes a shop item.
+    GET: Deletes a shop item. (yes I know I should use DELETE but this is simpler for now)
     """
     item = ShopItem.query.get_or_404(item_id)
-
-    if item.creator_id != current_user.id:
-        flash("You do not have permission to delete this shop item.", "danger")
-        return redirect(url_for('shop.shop'))
 
     db.session.delete(item)
     db.session.commit()

@@ -49,14 +49,10 @@ def edit_news(post_id):
     """
     post = NewsPost.query.get_or_404(post_id)
 
-    if post.creator_id != current_user.id:
-        flash("You do not have permission to edit this news post.", "danger")
-        return redirect(url_for('news.news'))
-
     form = NewsPostForm(obj=post)
 
     if form.validate_on_submit():
-        post.title = form.title.data
+        post.summary = form.summary.data
         post.content = form.content.data
         db.session.commit()
 
@@ -65,17 +61,13 @@ def edit_news(post_id):
 
     return render_template("news/edit_news.html", form=form, post=post)
 
-@news_bp.route('/delete/<int:post_id>', methods=['DELETE'])
+@news_bp.route('/delete/<int:post_id>')
 @login_required
 def delete_news(post_id):
     """
-    DELETE: Deletes a news post.
+    GET: Deletes a news post. (Yes, this is a GET for simplicity, but should be a DELETE)
     """
     post = NewsPost.query.get_or_404(post_id)
-
-    if post.creator_id != current_user.id:
-        flash("You do not have permission to delete this news post.", "danger")
-        return redirect(url_for('news.news'))
 
     db.session.delete(post)
     db.session.commit()

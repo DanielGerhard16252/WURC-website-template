@@ -11,4 +11,11 @@ class NewsPostForm(FlaskForm):
     # TODO image support
     content = StringField('Content:', name="content", validators=[DataRequired()])
     submit = SubmitField('Submit')
-    
+
+class EditPostForm(FlaskForm):
+    """
+    Form for editing existing news articles.
+    """
+    summary = StringField('Edit summary:', name="summary", validators=[DataRequired(), Length(max=255)])
+    content = StringField('Edit content:', name="content", validators=[DataRequired()])
+    submit = SubmitField('Update')
