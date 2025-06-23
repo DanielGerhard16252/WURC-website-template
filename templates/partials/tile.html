@@ -1,0 +1,5 @@
+<!-- Provides click functionality to a tile and general tile styling-->
+<div class="{{ 'tile' if not tile_click_behaviour else 'tile clickable hover-shadow'}}" onclick="{{ tile_click_behaviour }}">
+    {% block content %}
+    {% endblock %}
+</div>

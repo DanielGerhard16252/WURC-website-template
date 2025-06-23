@@ -1,0 +1,25 @@
+{{ form.hidden_tag() }}
+{% block fields %}
+    {% for field in form %}
+        {% if field != form.csrf_token and field != form.submit %}
+            <div class="form-input-section">
+                <label><span>{{ field.label }}</span></label>
+                {{ field(size=30, class="form-field") }}
+                {% if field.errors %}
+                    <div class="error">
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+    {% endfor %}
+{% endblock %}
+
+{% block submit %}
+    <div>
+        {{ form.submit(class="submit-button") }}
+    </div>
+{% endblock %}

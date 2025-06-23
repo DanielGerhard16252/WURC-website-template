@@ -1,0 +1,17 @@
+<!-- The HTML contnet for the heading menu bar -->
+
+<header>
+    <span>
+        <li><a href="{{ url_for('news.news') }}">News</a></li>
+        <li><a href="{{ url_for('shop.shop') }}">Shop</a></li>
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('auth.logout') }}">Logout from {{ current_user.email }}</a></li>
+
+        {% else %}
+            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+            <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+        {% endif %}
+
+    </span>
+    <img src="/static/images/logo.png" alt="Logo" width="100" height="50" aria-hidden="true" />
+</header>

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+    <h1>Latest News</h1>
+    <p>Stay updated with the latest news and announcements.</p>
+
+    <div class="tile-list">
+        {% for post in posts %}
+            {% include "news/partials/post_tile.html" %}
+        {% endfor %}
+    </div>
+
+    {% if not posts %}
+        <p>No news articles available at the moment.</p>
+    {% endif %}
+{% endblock %}

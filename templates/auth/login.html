@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% set section_title = "Login" %}
+{% block title %}
+    {{ section_title }}
+{% endblock %}
+
+{% block content %}
+    {% set back_url = url_for("events.events") %}
+    {% set back_text = "To events" %}
+    
+    {% include 'partials/layout/section_title.html' %}
+
+    <form method="post">
+        <fieldset class="box-form-dark">
+            <a href="/forgot-password">Forgot Password?</a>
+            {% include 'partials/form.html' %}
+        </fieldset>
+    </form>
+    
+{% endblock %}

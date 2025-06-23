@@ -1,0 +1,129 @@
+/* CSS for form styling (e.g. login/register) */
+
+.box-form, .box-form-dark {
+    box-sizing: border-box;
+    margin: 10px auto;
+    width: fit-content;
+    padding: 20px 20px;
+    font-size: larger;
+    border: 1px solid gray;
+}
+
+.box-form-dark {
+    background-color: var(--complement-color);
+    color: white;
+}
+
+.form-input-collection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: fit-content;
+}
+
+.form-input-section, .form-field {
+    margin: 10px 5px;
+    padding: 10px;
+    border: none;
+    max-width: 500px;
+    font-size: large;
+    outline: none; /* Removes the default browser outline */
+}
+
+.form-input-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.form-field {
+    border-bottom: 2px solid gray;
+    background: none;
+}
+
+.box-form-dark .form-field {
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+input[type="number"] {
+    max-width: 100px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    text-align: left;
+}
+
+input[type="radio"]
+{
+    margin-right: 10px;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.form-field:focus {
+    border-bottom: 3px solid var(--complement-color);
+}
+
+.box-form-dark .form-field:focus {
+    border-bottom: 4px solid white;
+}
+
+.submit-button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border: none;
+    width: fit-content;
+    background-color: white;
+    color: var(--complement-color);
+    font-size: larger;
+    font-weight: bold;
+}
+
+.box-form .submit-button, .dark-button-area .submit-button {
+    background-color: var(--complement-color);
+    color: white;
+}
+.box-form .submit-button:hover, .dark-button-area .submit-button:hover {
+    background-color: var(--complement-color-dark);
+}
+.submit-button:hover {
+    background-color: #bbb;
+}
+
+.submit-button:disabled, button:disabled {
+    background-color: lightgray;
+    color: gray;
+}
+
+
+.error {
+    background-color: lightcoral;
+    border-radius: 10px;
+    padding: 4px 10px;
+}
+
+.password-strength-output {
+    display: none;
+    list-style: none;
+}
+
+.invalid {
+    border-bottom: 3px solid red;
+}
+
+.right-subform {
+    padding-left: 10px;
+    margin-left: 10px;
+    border-left: 1px solid gray;
+}
+
+.subform-header {
+    margin-bottom: 15px;
+}

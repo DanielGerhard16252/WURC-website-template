@@ -1,0 +1,12 @@
+{% extends 'partials/tile.html' %}
+
+{% set tile_click_behaviour = "window.location.href='" ~ url_for("news.view_news", post_id=post.id) ~ "'" %}
+<!-- The HTML for the overview of an event -->
+{% block content %}
+    <span>
+        <h3>{{ post.name }}</h3>
+        <p>{{ post.summary }}</p>
+        <p class="date">Published on {{ post.created_at | format_datetime }}</p>
+    </span>
+
+{% endblock %}

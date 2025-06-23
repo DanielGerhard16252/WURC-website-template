@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="/static/css/layout.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/forms.css" type="text/css" />
+        <link rel="icon" href="/static/images/icons/favicon.ico">
+        <script src="/static/js/jquery-3.7.1.min.js"></script>
+        <script src="/static/js/layout.js"></script>
+        {% block scripts %}
+        <!-- Additional CSS or JS linking will be done in the necessary files. -->
+        {% endblock %}
+    </head>
+    <body>
+        <div id="content-wrapper">
+            {% include 'partials/layout/header.html' %}
+            <div id="content">
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        <div class="alert-box {{ 'category-' ~ messages[0][0] }}" role="alert">
+                            <span class="alert-text">{{ messages[0][1] }}</span>
+                            <button class="alert-close" onclick="hideAlerts()">
+                                <span>x</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                {% block content %}
+                {% endblock %}
+            </div>
+            
+        </div>
+        {% include 'partials/layout/footer.html' %}
+    </body>
+</html>

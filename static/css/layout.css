@@ -1,0 +1,413 @@
+/* CSS for layouts of all pages */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    --light-background-color: rgb(230, 230, 230);
+    /* Used for accentuation color like header and footer */
+    --complement-color: rgb(123, 66, 142);
+    --complement-color-dark: rgb(76, 40, 89);
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#content-wrapper {
+    flex: 1 0 auto;
+    width: 100%;
+}
+
+/* Header and Footer */
+
+header, footer {
+    /* horizontal menu bar */
+    height: fit-content;
+    display: flex;
+    background-color: var(--complement-color);
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    list-style-type: none;
+    justify-content: space-between;
+    padding: 0 20px;
+    align-items: center;
+    
+}
+
+h4 {
+    color: var(--complement-color-dark);
+}
+
+header li, footer li {
+display: inline;
+margin: 0 30px 0 0; /* space between menu items */
+}
+
+footer {
+    margin-top: 30px;
+    justify-content: center;
+    width: 100%;
+}
+header a, footer a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+header a:hover, footer a:hover {
+    color: #bbb;
+}
+
+footer a {
+    font-size: large;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+/* The following CSS is for dropdown menus for the menu bar - such as login and register */
+/* https://www.w3schools.com/howto/howto_css_dropdown.asp helped with this */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* For the items within the drodown (which start without being shown) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--complement-color);
+    z-index: 1;
+    width: 100%;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+a {
+    color: var(--complement-color);
+    font-weight: bold;
+}
+
+a:hover {
+    color: var(--complement-color-dark);
+}   
+
+button, .link-button {
+    background-color: var(--complement-color);
+    color: white;
+    padding: 10px;
+    border: none;
+    font-size: larger;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+.link-button {
+    text-decoration: none;
+    margin: 10px;
+}
+
+.link-button:hover {
+    background-color: var(--complement-color-dark);
+    color: white;
+}
+
+h1 {
+    color: var(--complement-color-dark);
+    text-align: center;
+    margin: 20px 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: fit-content;
+    padding: 20px;
+    margin: 10px auto;
+}
+
+th, td {
+    border: 1px solid lightgray;
+    padding: 10px;
+    text-align: center;
+}
+
+
+/* This adds a light gray bar to the bottom of the header to make it look nicer */
+.header-section {
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 50px;
+}
+
+/* for subheadings in the page. */
+.section-heading {
+    color: var(--complement-color-dark);
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid lightgray;
+    border-top: 2px solid var(--complement-color-dark);
+    margin: 30px 0;
+
+}
+
+
+.clickable {
+    cursor: pointer;
+}
+
+.popout {
+    /* For when clciking on things like a barcode to make it take up the whole screen */
+    display: none;
+    position: fixed;
+    width: 100vh;
+    height: 100vh;
+    margin: auto;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.centered {
+    margin: 10px auto;
+    justify-self: center;
+    text-align: center;
+}
+
+.caution {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 2px;
+    background-color: palegoldenrod;
+    color: black;
+    width: fit-content;
+    text-align: center;
+    margin: 5px auto;
+}
+
+.scrollable {
+    overflow: auto;
+    max-height: 65vh;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px;
+    resize: vertical;
+}
+
+/* CSS for events/ */
+
+.tile-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 20px;
+    align-items: center;
+}
+
+.tile {
+    width: 40%;
+    margin: 10px 0;
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgray;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* For larger devices than mobile we want the event tiles
+to be horizontally big rather than vetically big */
+@media only screen and (min-width: 768px) {
+    .tile {
+        flex-direction: row;
+    }
+}
+/* when hovering over an event tile wew ant the shadow */
+.hover-shadow:hover {
+    box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.2);
+}
+
+.details-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0px auto;
+    margin-bottom: 10px;
+}
+
+.details-box-item {
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgray;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.small-button {
+    padding: 5px;
+    margin: 5px;
+    font-size: small;
+    cursor: pointer;
+}
+
+.alert-box {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    z-index: 1000;
+    width: fit-content;
+    border: 1px solid gray;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    right: 0;
+    top: 10%;
+    opacity: 1;
+    transition: opacity 0.5s; /* Should make the alert box fade in and out */
+}
+
+.alert-close {
+    float: left;
+    cursor: pointer;
+    background: none;
+    color: black;
+    font-size: small;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.alert-text {
+    padding: 10px;
+}
+
+.category-success {
+    background-color: lightgreen;
+}
+
+.category-error {
+    background-color: lightcoral;
+    font-weight: bold;
+}
+
+.category-caution {
+    background-color: palegoldenrod;
+    font-weight: bold;
+}
+
+.text-box {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 15px auto;
+    text-align: center;
+    width: fit-content;
+    border: 1px solid gray;
+
+}
+
+.text-box p {
+    margin: 0.25em;
+}
+
+.text-box a {
+    color: var(--complement-color);
+    text-decoration: none;
+    font-weight: bold;
+    text-decoration: underline;
+
+}
+
+.back-text {
+    color: black;
+    font-size: medium;
+    text-decoration: underline;
+    text-align: left;
+    vertical-align: 90%;
+}
+
+.row-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: fit-content;
+    margin: 10px auto;
+}
+
+.column-display, .column-display-compact {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: fit-content;
+    margin: 10px auto;
+}
+
+.column-display div {
+    margin: 50px;
+
+}
+
+.column-display-compact div {
+    margin: 25px;
+}
+
+.compact div {
+    margin: 10px;
+}
+
+.danger-button {
+    background-color: orangered;
+    color: white;
+    padding: 10px;
+    border: none;
+    font-size: larger;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px;
+    text-decoration: none;
+}
+
+.danger-button:hover {
+    background-color: darkred;
+}
+
+.red-text {
+    color: darkred;
+    font-weight: bold;
+}
+
+.green-text {
+    color: darkgreen;
+    font-weight: bold;
+
+}
+
+.back-arrow {
+    color: white;
+}
+
+.back-arrow:hover {
+    color: white;
+}

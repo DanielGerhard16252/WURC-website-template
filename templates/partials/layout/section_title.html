@@ -1,0 +1,13 @@
+<!-- This is used for all header sections so that we can reduce copy pasted html by just setting the variables which change. -->
+
+<div class="header-section">
+    <span>
+        {% if back_url %}
+            <a class="back-arrow" href="{{ back_url }}">
+                <img src="/static/images/icons/back_arrow.png" alt="{{ back_alt_text }}" width="40" height="40" aria-hidden="true">
+                <span class="back-text">{{ back_text }}</span>
+            </a>
+        {% endif %}
+    </span>
+    <h1>{{ section_title }}</h1>
+</div>
