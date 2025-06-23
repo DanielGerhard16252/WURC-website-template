@@ -7,8 +7,8 @@ shop_bp = Blueprint('shop', __name__, template_folder='templates/shop')
 
 @shop_bp.route('/')
 def shop():
-    # Example: items = get_all_shop_items()
-    return render_template('shop/shop.html')  # , items=items
+    items = ShopItem.query.order_by(ShopItem.name.asc()).all()
+    return render_template('shop/shop.html', items=items)  # , items=items
 
 @shop_bp.route('/<int:item_id>')
 def shop_item(item_id):
