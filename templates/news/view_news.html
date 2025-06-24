@@ -5,7 +5,7 @@
 {% block content %}
     <h1>{{ post.title }}</h1>
     <p class="subtext">
-        Published on {{ post.created_at | format_datetime }}
+        Published on {{ post.created_at | format_datetime }} by {{ post.creator.first_name }} {{ post.creator.last_name }}
         {% if post.updated_at %}
             <br>Last updated on {{ post.updated_at | format_datetime }}
         {% endif %}
