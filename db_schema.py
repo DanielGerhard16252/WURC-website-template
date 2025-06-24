@@ -38,7 +38,7 @@ class NewsPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     summary = db.Column(db.String(255), nullable=False)  # A short summary of the news post
-    content = db.Column(db.Text, nullable=False)
+    article = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
     creator_id = db.Column(db.Integer, db.ForeignKey('admins.id'), nullable=False)
@@ -75,6 +75,6 @@ def dbinit():
         last_name="User",
         password_hash=generate_password_hash("adminpassword")
     ))
-    db.session.add(NewsPost(title="Welcome to the site!", content="This is the first news post on the site. We hope you enjoy your stay!", creator_id=1, created_at=datetime.now(), updated_at=datetime.now(), summary="Welcome to the site!"))
+    db.session.add(NewsPost(title="Welcome to the site!", article="This is the first news post on the site. We hope you enjoy your stay!", creator_id=1, created_at=datetime.now(), updated_at=datetime.now(), summary="Welcome to the site!"))
     db.session.add(ShopItem(name="Sample Item", description="This is a sample item for the shop.", price=19.99, image_url="https://example.com/sample-item.jpg", creator_id=1))
     db.session.commit()

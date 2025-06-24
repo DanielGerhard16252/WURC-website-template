@@ -14,11 +14,11 @@
                 {% endif %}
             </div>
             <div class="form-input-section">
-                {{ form.content.label }}
-                {{ form.content() }}
-                {% if form.content.errors %}
+                {{ form.article.label }}
+                {{ form.article() }}
+                {% if form.article.errors %}
                     <div class="error">
-                        {% for error in form.content.errors %}
+                        {% for error in form.article.errors %}
                             <p>{{ error }}</p>
                         {% endfor %}
                     </div>

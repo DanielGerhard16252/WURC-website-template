@@ -29,10 +29,10 @@ def create_news():
     
     if form.validate_on_submit():
         title = form.title.data
-        content = cleanify(form.content.data)
+        article = cleanify(form.article.data)
         summary = form.summary.data
 
-        new_post = NewsPost(title=title, summary=summary, content=content, creator_id=current_user.id)
+        new_post = NewsPost(title=title, summary=summary, article=article, creator_id=current_user.id)
         db.session.add(new_post)
         db.session.commit()
 
@@ -54,7 +54,7 @@ def edit_news(post_id):
 
     if form.validate_on_submit():
         post.summary = form.summary.data
-        post.content = cleanify(form.content.data)
+        post.article = cleanify(form.article.data)
         db.session.commit()
 
         flash("News post updated successfully!", "success")
