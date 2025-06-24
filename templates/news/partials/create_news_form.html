@@ -1,4 +1,4 @@
-{% extends 'partials/form.html' %}
+<!-- {% extends 'partials/form.html' %}
 {% block fields %}
     <div class="form-input-collection">
         <div>
@@ -26,7 +26,8 @@
             </div>
             <div class="form-input-section">
                 {{ form.content.label }}
-                {{ form.content(rows=10, class="form-field") }}
+                {{ form.content() }}
+                
                 {% if form.content.errors %}
                     <div class="error">
                         {% for error in form.content.errors %}
@@ -38,4 +39,4 @@
 
         </div>
     </div>
-{% endblock %}
+{% endblock %} -->

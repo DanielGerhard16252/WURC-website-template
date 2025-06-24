@@ -26,7 +26,7 @@
             </div>
             <div class="form-input-section">
                 {{ form.description.label }}
-                {{ form.description(rows=10, class="form-field") }}
+                {{ form.description() }}
                 {% if form.description.errors %}
                     <div class="error">
                         {% for error in form.description.errors %}

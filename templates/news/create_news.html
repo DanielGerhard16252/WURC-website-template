@@ -2,13 +2,55 @@
 {% block title %}Create News Post{% endblock %}
 {% block content %}
 
+    
     <h1>Create News Post</h1>
     <p>Share your latest updates and announcements with the community.</p>
 
     <form method="post" action="{{ url_for('news.create_news') }}">
         <fieldset class="box-form-dark">
-            {% include 'news/partials/create_news_form.html' %}
+            <div class="form-input-collection">
+                <div>
+                    <div class="form-input-section">
+                        {{ form.title.label }}
+                        {{ form.title(size=30, class="form-field") }}
+                        {% if form.title.errors %}
+                            <div class="error">
+                                {% for error in form.title.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-input-section">
+                        {{ form.summary.label }}
+                        {{ form.summary(rows=3, class="form-field") }}
+                        {% if form.summary.errors %}
+                            <div class="error">
+                                {% for error in form.summary.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            {{ form.content.label }}
+            {{ form.content }}
+            {% if form.content.errors %}
+                <div class="error">
+                    {% for error in form.content.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-submit-section">
+                {{ form.submit(class="form-submit-button", value="Create News Post") }}
+            </div>
         </fieldset>
     </form>
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='content') }}
+    
 
 {% endblock %}

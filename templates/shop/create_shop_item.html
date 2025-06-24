@@ -2,6 +2,7 @@
 {% block title %}Create Shop Item{% endblock %}
 {% block content %}
 
+    
     <h1>Create Shop Item</h1>
 
     <form method="post" action="{{ url_for('shop.create_shop_item') }}">
@@ -9,5 +10,7 @@
             {% include 'shop/partials/create_shop_form.html' %}
         </fieldset>
     </form>
+    <!-- {{ ckeditor.load() }}
+    {{ ckeditor.config(name='description') }} -->
 
 {% endblock %}

@@ -7,7 +7,7 @@ from server.blueprints.auth import auth_bp
 from server.blueprints.news import news_bp
 from server.blueprints.shop import shop_bp
 from datetime import datetime
-
+from flask_ckeditor import CKEditor
 
 security_key = environ.get('SECURITY_KEY', 'default_security_key')
 security_salt = environ.get('SECURITY_SALT', 'default_security_salt')
@@ -17,12 +17,15 @@ CONFIG_DICT = {
     'SQLALCHEMY_TRACK_MODIFICATIONS': False,
     'SECRET_KEY': security_key,
     'SECURITY_PASSWORD_SALT': security_salt,
+    'CKEDITOR_SERVE_LOCAL': True,
+    'CKEDITOR_HEIGHT': 500,
     'UPLOAD_FOLDER': 'uploads'
 }
 
 app = Flask(__name__)
 app.config.update(CONFIG_DICT)
 db.init_app(app)
+ckeditor = CKEditor()
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'  # Redirect to login page if not authenticated
@@ -30,12 +33,13 @@ login_manager.login_view = 'auth.login'  # Redirect to login page if not authent
 login_manager.init_app(app)
 mail = Mail(app)
 mail.init_app(app)
+ckeditor.init_app(app)
 
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(news_bp, url_prefix='/news')
 app.register_blueprint(shop_bp, url_prefix='/shop')
 
-reset_db = True
+reset_db = False
 if reset_db:
     with app.app_context():
         db.drop_all()  # Drop all tables if reset_db is True

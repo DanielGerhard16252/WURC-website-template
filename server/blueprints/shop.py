@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from db_schema import Admin, ShopItem, db
 from flask_login import login_required, current_user
 from server.forms.shop_forms import ShopItemForm
+from flask_ckeditor.utils import cleanify
 
 shop_bp = Blueprint('shop', __name__, template_folder='templates/shop')
 
@@ -30,7 +31,7 @@ def create_shop_item():
 
     if form.validate_on_submit():
         name = form.name.data
-        description = form.description.data
+        description = cleanify(form.description.data)
         price = form.price.data
 
         new_item = ShopItem(name=name, description=description, price=price, creator_id=current_user.id)
@@ -55,7 +56,7 @@ def edit_shop_item(item_id):
 
     if form.validate_on_submit():
         item.name = form.name.data
-        item.description = form.description.data
+        item.description = cleanify(form.description.data)
         item.price = form.price.data
         db.session.commit()
 

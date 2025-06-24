@@ -2,6 +2,7 @@
 {% block title %}Editing item: {{ item.name }}{% endblock %}
 {% block content %}
 
+    
     <h1>Editing item: {{ item.name }}</h1>
 
     <form method="post" action="{{ url_for('shop.edit_shop_item', item_id=item.id) }}">
@@ -9,6 +10,8 @@
             {% include 'shop/partials/create_shop_form.html' %}
         </fieldset>
     </form>
+    <!-- {{ ckeditor.load() }}
+    {{ ckeditor.config(name='description') }} -->
 
     <a href="{{ url_for('shop.delete_shop_item', item_id=item.id) }}" class="btn btn-danger"
        onclick="return confirm('Are you sure you want to delete this item?');">Delete Item</a>
