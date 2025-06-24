@@ -10,8 +10,8 @@
             {% include 'news/partials/edit_news_form.html' %}
         </fieldset>
     </form>
-    <!-- {{ ckeditor.load() }}
-    {{ ckeditor.config(name='content') }} -->
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='content') }}
     
     <a href="{{ url_for('news.delete_news', post_id=post.id) }}" class="btn btn-danger"
        onclick="return confirm('Are you sure you want to delete this post?');">Delete Post</a>
