@@ -29,7 +29,7 @@ def create_news():
     
     if form.validate_on_submit():
         title = form.title.data
-        article = cleanify(form.article.data)
+        article = form.article.data  # We don't clean as we trust the admins to not XSS their own users.
         summary = form.summary.data
 
         new_post = NewsPost(title=title, summary=summary, article=article, creator_id=current_user.id)
@@ -54,7 +54,7 @@ def edit_news(post_id):
 
     if form.validate_on_submit():
         post.summary = form.summary.data
-        post.article = cleanify(form.article.data)
+        post.article = form.article.data # We don't clean as we trust the admins to not XSS their own users.
         db.session.commit()
 
         flash("News post updated successfully!", "success")

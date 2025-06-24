@@ -31,7 +31,7 @@ def create_shop_item():
 
     if form.validate_on_submit():
         name = form.name.data
-        description = cleanify(form.description.data)
+        description = form.description.data  # We don't clean as we trust the admins to not XSS their own users.
         price = form.price.data
 
         new_item = ShopItem(name=name, description=description, price=price, creator_id=current_user.id)
@@ -56,7 +56,7 @@ def edit_shop_item(item_id):
 
     if form.validate_on_submit():
         item.name = form.name.data
-        item.description = cleanify(form.description.data)
+        item.description = form.description.data  # We don't clean as we trust the admins to not XSS their own users.
         item.price = form.price.data
         db.session.commit()
 
