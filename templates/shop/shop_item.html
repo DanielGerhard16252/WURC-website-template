@@ -16,8 +16,7 @@
         
     {% endif %}
 
-    <!-- TODO add proper full HTML support for content -->
-    <p> {{ item.description }}</p>
+    <p> {{ item.description | safe }}</p>
 
     <p>
         <a href="{{ url_for('shop.shop') }}">Back to shop</a>

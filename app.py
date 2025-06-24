@@ -1,25 +1,27 @@
 from flask_login import LoginManager
 from flask_mail import Mail
-from os import environ
-from flask import Flask, render_template, redirect, url_for, flash
+import os
+from flask import Flask, render_template, redirect, url_for, flash, request, send_from_directory
 from db_schema import db, dbinit
 from server.blueprints.auth import auth_bp
 from server.blueprints.news import news_bp
 from server.blueprints.shop import shop_bp
 from datetime import datetime
-from flask_ckeditor import CKEditor
+from flask_ckeditor import CKEditor, upload_success, upload_fail
 
-security_key = environ.get('SECURITY_KEY', 'default_security_key')
-security_salt = environ.get('SECURITY_SALT', 'default_security_salt')
+security_key = os.environ.get('SECURITY_KEY', 'default_security_key')
+security_salt = os.environ.get('SECURITY_SALT', 'default_security_salt')
 
 CONFIG_DICT = {
-    'SQLALCHEMY_DATABASE_URI': environ.get('DATABASE_URL', 'sqlite:///app.db'),
+    'SQLALCHEMY_DATABASE_URI': os.environ.get('DATABASE_URL', 'sqlite:///app.db'),
     'SQLALCHEMY_TRACK_MODIFICATIONS': False,
     'SECRET_KEY': security_key,
     'SECURITY_PASSWORD_SALT': security_salt,
     'CKEDITOR_SERVE_LOCAL': True,
     'CKEDITOR_HEIGHT': 500,
-    'UPLOAD_FOLDER': 'uploads'
+    'UPLOAD_FOLDER': 'uploads',
+    'CKEDITOR_FILE_UPLOADER': 'upload',
+    'UPLOADED_PATH': 'uploads',
 }
 
 app = Flask(__name__)
@@ -89,3 +91,18 @@ def contact():
     """
     return render_template("contact.html")
 
+@app.route('/files/<filename>')
+def uploaded_files(filename):
+    path = app.config['UPLOADED_PATH']
+    return send_from_directory(path, filename)
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    f = request.files.get('upload')
+    extension = f.filename.split('.')[-1].lower()
+    if extension not in ['jpg', 'gif', 'png', 'jpeg']:
+        return upload_fail(message='Image only!')
+    f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
+    url = url_for('uploaded_files', filename=f.filename)
+    return upload_success(url, filename=f.filename)
