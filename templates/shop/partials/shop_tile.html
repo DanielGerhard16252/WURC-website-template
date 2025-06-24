@@ -3,9 +3,17 @@
 {% set tile_click_behaviour = "window.location.href='" ~ url_for("shop.shop_item", item_id=item.id) ~ "'" %}
 <!-- The HTML for the overview of an event -->
 {% block content %}
-    <span>
+    <div>
         <h3>{{ item.name }}</h3>
+    </div>
+    {% if item.images %}
+        <div>
+            <img src="/files/{{ item.images[0].filename }}" alt="item image" width="60px" height="60px" class="thumbnail">
+        </div>
+    {% endif %}
+    <div>
         <p><b>{{ item.price|format_price }}</b></p>
-    </span>
+    </div>
+
 
 {% endblock %}

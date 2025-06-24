@@ -25,6 +25,17 @@
                 {% endif %}
             </div>
             <div class="form-input-section">
+                {{ form.images.label }}
+                {{ form.images(multiple=True) }}
+                {% if form.images.errors %}
+                    <div class="error">
+                        {% for error in form.images.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-input-section">
                 {{ form.description.label }}
                 {{ form.description() }}
                 {% if form.description.errors %}

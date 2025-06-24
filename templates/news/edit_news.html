@@ -5,7 +5,8 @@
     
     <h1>Editing news post: {{ post.title }}</h1>
 
-    <form method="post" action="{{ url_for('news.edit_news', post_id=post.id) }}">
+    <form method="post" action="{{ url_for('news.edit_news', post_id=post.id) }}" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
         <fieldset class="box-form-dark">
             {% include 'news/partials/edit_news_form.html' %}
         </fieldset>

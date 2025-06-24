@@ -229,6 +229,12 @@ th, td {
     justify-content: space-between;
 }
 
+.news-summary {
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%; 
+}
+
 /* For larger devices than mobile we want the event tiles
 to be horizontally big rather than vetically big */
 @media only screen and (min-width: 768px) {

@@ -5,7 +5,8 @@
     
     <h1>Editing item: {{ item.name }}</h1>
 
-    <form method="post" action="{{ url_for('shop.edit_shop_item', item_id=item.id) }}">
+    <form method="post" action="{{ url_for('shop.edit_shop_item', item_id=item.id) }}" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
         <fieldset class="box-form-dark">
             {% include 'shop/partials/create_shop_form.html' %}
         </fieldset>

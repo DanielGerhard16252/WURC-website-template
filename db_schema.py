@@ -29,7 +29,6 @@ class Admin(UserMixin, db.Model):
     # email_confirmed = db.Column(db.Boolean, default=False)
     # email_confirmation_last_sent = db.Column(db.DateTime, default=datetime.now())
 
-
 class NewsPost(db.Model):
     """
     A new post on the site which can be created, edited and deleted by admins.
@@ -43,7 +42,7 @@ class NewsPost(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
     creator_id = db.Column(db.Integer, db.ForeignKey('admins.id'), nullable=False)
     creator = db.relationship('Admin', backref=db.backref('news_posts', lazy=True))
-    # TODO add image support
+    images = db.relationship('Image', backref='news_post', lazy=True)
 
 class ShopItem(db.Model):
     """
@@ -59,8 +58,17 @@ class ShopItem(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
     creator_id = db.Column(db.Integer, db.ForeignKey('admins.id'), nullable=False)
     creator = db.relationship('Admin', backref=db.backref('shop_items', lazy=True))
-    # TODO add image support, or use a file upload system to store images in a folder and link to them here
+    images = db.relationship('Image', backref='shop_item', lazy=True)
 
+class Image(db.Model):
+    """
+    Represents images uploaded as part of news posts or shop items to be shown at the top of their pages.
+    """
+    __tablename__ = 'images'
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(255), nullable=False) # the filename in the uploads folder.
+    news_post_id = db.Column(db.Integer, db.ForeignKey('news_posts.id'), nullable=True)  # Nullable for shop items
+    shop_item_id = db.Column(db.Integer, db.ForeignKey('shop_items.id'), nullable=True)  # Nullable for news posts
 
 def dbinit():
     """

@@ -5,7 +5,8 @@
     
     <h1>Create Shop Item</h1>
 
-    <form method="post" action="{{ url_for('shop.create_shop_item') }}">
+    <form method="post" action="{{ url_for('shop.create_shop_item') }}" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
         <fieldset class="box-form-dark">
             {% include 'shop/partials/create_shop_form.html' %}
         </fieldset>

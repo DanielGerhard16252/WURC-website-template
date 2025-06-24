@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session, flash
-from db_schema import db, Admin, NewsPost
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app
+from db_schema import db, Admin, NewsPost, Image
 from flask_login import login_required, current_user
 from server.forms.news_forms import NewsPostForm
 from flask_ckeditor.utils import cleanify
+from werkzeug.utils import secure_filename
 
 news_bp = Blueprint('news', __name__)
 
@@ -32,7 +33,22 @@ def create_news():
         article = form.article.data  # We don't clean as we trust the admins to not XSS their own users.
         summary = form.summary.data
 
-        new_post = NewsPost(title=title, summary=summary, article=article, creator_id=current_user.id)
+        images = []
+        # handle images uploaded
+        for f in form.images.data:
+            if f:
+                filename = secure_filename(f.filename)
+                f.save(f"{current_app.config["UPLOAD_FOLDER"]}/{filename}")
+                image = Image(filename=filename)
+                db.session.add(image)
+                images.append(image)
+            
+        new_post = NewsPost(
+            title=title,
+            summary=summary,
+            article=article,
+            images=images,
+            creator_id=current_user.id)
         db.session.add(new_post)
         db.session.commit()
 
@@ -54,6 +70,16 @@ def edit_news(post_id):
 
     if form.validate_on_submit():
         post.summary = form.summary.data
+        images = []
+        for f in form.images.data:
+            if f:
+                filename = secure_filename(f.filename)
+                f.save(f"{current_app.config['UPLOAD_FOLDER']}/{filename}")
+                image = Image(filename=filename)
+                db.session.add(image)
+                images.append(image)
+
+        post.images = images
         post.article = form.article.data # We don't clean as we trust the admins to not XSS their own users.
         db.session.commit()
 
