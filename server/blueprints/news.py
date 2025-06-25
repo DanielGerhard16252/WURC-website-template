@@ -38,7 +38,7 @@ def create_news():
         for f in form.images.data:
             if f:
                 filename = secure_filename(f.filename)
-                f.save(f"{current_app.config["UPLOAD_FOLDER"]}/{filename}")
+                f.save(f"{current_app.config['UPLOAD_FOLDER']}/{filename}")
                 image = Image(filename=filename)
                 db.session.add(image)
                 images.append(image)
