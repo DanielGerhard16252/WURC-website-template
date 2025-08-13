@@ -2,10 +2,159 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>
-        Welcome to WURC!
-    </h1>
+<div class="main-header">
+  <h1>Warwick University Rifle Club</h1>
+</div>
+<section class="about-section">
+  <div class="about-container">
+    <img src="/static/images/logo3.png" alt="WURC Logo" class="about-logo" />
+    <div class="about-text">
+      <h2>About Us</h2>
+      <p>
+        The Warwick University Rifle Club (WURC) is a student-led shooting club open to all Warwick students.
+        We offer a range of disciplines — including smallbore, fullbore, clay pigeon, and gallery rifle —
+        and aim to make shooting accessible, inclusive, and enjoyable for everyone, regardless of experience.
+      </p>
+      <p>
+        Our committee includes students from all backgrounds — some who picked up a rifle for the first time at university,
+        and others who’ve competed at national and international levels, including BUCS, the Imperial Meeting, and team GB pathways.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-section">
+  <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+          <h1>Some of our Photos!</h1>
+          {% for photo in photos %}
+          <div class="carousel-item {% if loop.first %}active{% endif %}">
+              <img src="{{ url_for('uploaded_files', filename=photo.filename) }}" alt="Gallery Image">
+          </div>
+          {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+      </button>
+      <div class="view-all-container">
+        <a class="view-all" href="{{ url_for('gallery.gallery') }}">View All</a>
+      </div>
+      
+  </div>
+
+</section>
+<section class="what-we-do">
+  <h1 style="padding: 2%;">What do we do?</h1>
     <p>
-        This is the home page of the WURC website. Please add info here!
+      WURC is a rifle club for students studying at Warwick University of Warwick. We focus on four main disciplines: Target Rifle (Smallbore and Fullbore), Clay Pigeon Shooting and Gallery rifle.
     </p>
+    <p>
+      We run bi-weekly sessions in smallbore target rifle at the Solihull Rifle and Pistol club, and weekly clay sessions at Wedgenock clay pigeon shooting ground, as well as fortnightly gallery sessions at Solihull and termly fullbore sessions at Bisely.
+    </p>
+    <p>
+      We provide expert coaching and are completely accessible for all levels, whether you have never touched a gun before or if you have shot for England WURC is the club for you!
+    </p>
+    <p>
+      We enter a lot of competitions which can be a great way to learn and get really good at shooting and they are available to anyone.
+    </p>
+    <div class="grid-container">
+      <div class="box">
+        <img src="/static/images/str.jpg" alt="Smallbore" class="grid-image">
+        <h2 style="padding: 1rem;">
+          Smallbore Target Rifle
+        </h2>
+        <p>
+          Smallbore target rifle is a form a shooting using 22lr (a small calibre). It is shot at 25 meters and you have to shoot 10 targets. The highest possible score is 100.
+        </p>
+        <p>
+          Smallbore is by far our most common and popular discipline as it is fun, we run lots of sessions and it is relatively cheap! If you sign up at the start of the year you will also be able to compete in BUCS - the interuniversity competition (which is completely paid for by Warwick)!!!
+        </p>
+        <p>
+          We provide all equipment so all you need to do is sign up!
+        </p>
+        <p>
+          Smallbore Captain - Saida Alimdjanova
+        </p>
+      </div>
+      <div class="box">
+        <img src="/static/images/ftr.jpg" alt ="Fullbore" class="grid-image">
+        <h2 style="padding: 1rem;">
+          Fullbore Target Rifle
+        </h2>
+        <p>
+          Fullbore target rifle is considered one of the most fun disciplines where we take the big guns (308 win/ 7.62*51) to Bisley and shoot at distances between 300-1000 yards!
+        </p>
+        <p>
+          There are many great events to get involved in with fullbore like BYSA weekends and regular training sessions, where we usually spend the weekend shooting.
+        </p>
+        <p>
+          We generally only run one or two sessions per term given it's a bit more pricey and a bit of a drive but when we do go it is really fun!
+        </p>
+        <p>
+          We generally require you to have gone to a few smallbore sessions before attending a fullbore session just so you know your way around guns a bit better.
+        </p>
+        <p>
+          If you do train fullbore with us theres a high chance you can even shoot in the Imperial within a year - the biggest shooting competition in the world!
+        </p>
+        <p>Fullbore Captain - Harry Purslow</p>
+      </div>
+      <div class="box">
+        <img src="/static/images/clays.jpg" alt="Clays" class="grid-image">
+        <h2 style="padding: 1rem;">
+          Clay Pigeon Shooting
+        </h2>
+        <p>
+          If you would prefer a moving target come try out clay pigeon shooting, where we shoot flying clay disks!
+        </p>
+        <p>
+          Clays may be a little bit more pricey but is definitely a lot of fun, and a lot of people really enjoy it because it is outdoors.
+        </p>
+        <p>
+          Absolutely no experience is required and we have professional coaches to help shooters of all levels.
+        </p>
+        <p>
+          There is also the opportunity to represent the University in our BUCS team!
+        </p>
+        <p>Clays Captain - KaiKai Fan</p>
+      </div>
+      <div class="box">
+        <img src="/static/images/gallery.jpg" alt="Gallery Shooting" class="grid-image">
+        <h2 style="padding: 1rem;">
+          Gallery Rifle
+        </h2>
+        <p>
+          Gallery rifle is generally what most people imagine shooting to be. From a standing position we shoot semi-automatic or level action rifles (22lr, .357, or 38 special) at targets 25 meters away.
+        </p>
+          <p>
+            We currently don't compete in competitions with gallery, but we are looking to and everyone always agrees it's a lot of fun.
+          </p>
+          <p>
+            You need no prior experience to try gallery so please just book a session and come along!
+          </p>
+        </div> 
+  </div>
+</section>
+
+<section class="socials">
+  <h1 style="padding: 2%;">
+    Socials
+  </h1>
+  <p>
+    Socials are by far one of the most fun things we do! This is mainly because they're organised by me (Daniel Gehard) but also because we are an extremely friendly club and all of our members are lovely.
+  </p>
+  <p>
+   We have weekly socials in term one and two and we do loads of different things, like paintball, bar crawls and formal meals. Noone will ever be forced to drink and are socials are a completely safe space. 
+  </p>
+  <p>
+    There is also no need to shoot to come to a social, feel free to just rock up and say hi!
+  </p>
+  <p>
+    All events are published in our WhatsApp and Instagram.
+  </p>
+</section>
 {% endblock %}

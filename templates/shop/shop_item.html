@@ -3,51 +3,59 @@
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
-    <h1>{{ item.name }}</h1>
-
-    <h3>Price: <b>{{ item.price|format_price }}</b></h3>
+    <div class="view-shop-container">
+    <div class="view-shop-title">
+        <h1 class="shop-title">{{ item.name }}</h1>
+    </div>
 
     {% if current_user.is_authenticated %}
-    <!-- Admin-only stuff -->
-        <p>
-            <a href="{{ url_for('shop.edit_shop_item', item_id=item.id) }}">Edit this item</a>
-            <a href="{{ url_for('shop.delete_shop_item', item_id=item.id) }}" onclick="return confirm('Are you sure you want to delete this item?');">Delete this item</a>
-        </p>
-        
+      <p class="shop-controls">
+        <a href="{{ url_for('shop.edit_shop_item', item_id=item.id) }}">Edit this item</a>
+        <a href="{{ url_for('shop.delete_shop_item', item_id=item.id) }}" onclick="return confirm('Are you sure you want to delete this item?');">Delete this item</a>
+      </p>
     {% endif %}
 
-    {% if item.images %}
-        <style>
-            .carousel-control-next,
-            .carousel-control-prev /*, .carousel-indicators */ {
-                filter: invert(100%);
-            }
-        </style>
-        <div id="shopCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                {% for image in item.images %}
-                    <div class="carousel-item {% if loop.first %}active{% endif %}">
-                        <img src="/files/{{ image.filename }}" class="d-block w-25 h-25 news-image" alt="Image for {{ item.title }}">
-                    </div>
-                {% endfor %}
+    <div class="view-shop-content">
+      <div class="view-shop-image">
+        {% if item.images %}
+          <div id="shopCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+            <div class="shop-carousel-inner">
+              {% for image in item.images %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                  <img src="/files/{{ image.filename }}" class="shop-d-block w-100 h-auto" alt="Image for {{ item.title }}">
+                </div>
+              {% endfor %}
             </div>
             {% if item.images|length > 1 %}
-                <button class="carousel-control-prev" type="button" data-bs-target="#shopCarousel" data-bs-slide="prev">
+              <button class="carousel-control-prev" type="button" data-bs-target="#shopCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#shopCarousel" data-bs-slide="next">
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#shopCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
-                </button>
+              </button>
             {% endif %}
-        </div>
-    {% endif %}
+          </div>
+        {% else %}
+          <img src="/static/images/logo.png" class="default-shop-image" alt="Default logo for shop item">
+        {% endif %}
+      </div>
 
-    <p> {{ item.description | safe }}</p>
-
-    <p>
-        <a href="{{ url_for('shop.shop') }}">Back to shop</a>
-    </p>
+      <div class="view-item-text">
+        <h3>Price {{ item.price | format_price}}</h3>
+        <p>{{ item.description | safe }}</p>
+        <p class="shop-credits" style="font-size: 0.75rem;">
+          Published on {{ item.created_at | format_datetime }} by {{ item.creator.first_name }} {{ item.creator.last_name }}<br>
+          {% if item.updated_at %}
+            Last updated on {{ item.updated_at | format_datetime }}
+          {% endif %}
+        </p>
+        <p>
+          <a href="{{ url_for('shop.shop') }}">← Back to Shop</a>
+        </p>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

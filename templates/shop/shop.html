@@ -3,21 +3,45 @@
 {% block title %}Shop{% endblock %}
 
 {% block content %}
-    <h1>Shop items</h1>
-    <p>These are the items in our shop</p>
-
-    <div class="tile-list">
-        {% if current_user.is_authenticated %}
-            <p>
-                <a href="{{ url_for('shop.create_shop_item') }}" class="btn btn-primary">Add new item</a>
-            </p>
-        {% endif %}
-        {% for item in items %}
-            {% include "shop/partials/shop_tile.html" %}
-        {% endfor %}
+    <div class="shop-title-container">
+        <h1>Shop items</h1>
     </div>
+    
 
-    {% if not items %}
+    {% if current_user.is_authenticated %}
+    <p>
+      <a href="{{ url_for('shop.create_shop_item') }}" class="btn btn-primary">Add new item</a>
+    </p>
+    {% endif %}
+
+    {% if items %}
+        <div class="shop-tile-list">
+            {% for row in items|batch(2) %}
+            {% for item in row %}
+            <div class="shop-item">
+                <div class="shop-card">
+                    {% if item.images %}
+                    <img src="/files/{{ item.images[0].filename }}" alt="Preview image for {{ item.title }}">
+                    {% else %}
+                    <img src="/static/images/logo.png" alt="Default logo for news post">
+                    {% endif %}
+                    <div class= "item-info">
+                        <h2>{{ item.name }} - {{ item.price | format_price }}</h2>
+                        <p>{{ ((item.description | safe).split('\n')[0].split('&nbsp;')[0]).strip() | truncate(50, True, '...') }}</p>
+                        <div class="item-footer">
+                            <a href="{{ url_for('shop.shop_item', item_id=item.id) }}" class="shop-read-more-btn">Read more</a>
+                            <span class="item-date">{{ item.created_at | format_datetime }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            
+            {% endfor %}
+            {% endfor %}
+        </div> 
+
+    {% else %}
         <p>No shop items available at the moment.</p>
     {% endif %}
 {% endblock %}

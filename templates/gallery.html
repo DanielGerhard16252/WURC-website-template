@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="main-header">
+  <h1>Gallery</h1>
+</div>
+
+<div class="gallery-container">
+  {% for photo in photos %}
+    <div class="gallery-item">
+      <img src="{{ url_for('uploaded_files', filename=photo.filename) }}" alt="Gallery Image">
+
+      {% if current_user.is_authenticated %}
+        <form action="{{ url_for('gallery.delete', id=photo.id) }}" method="POST" style="margin-top: 5px;">
+          <button type="submit">Delete</button>
+        </form>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+{% if current_user.is_authenticated %}
+  <h2>Upload New Photo</h2>
+  <form action="{{ url_for('gallery.upload_image') }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="photo" accept="image/*" required>
+    <button type="submit">Upload</button>
+  </form>
+{% endif %}
+{% endblock %}

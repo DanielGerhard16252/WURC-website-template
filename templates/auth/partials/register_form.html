@@ -1,7 +1,7 @@
 {% extends 'partials/form.html' %}
 
 {% block fields %}
-    <div class="form-input-collection">
+    <div class="form-input-collection two-col">
         <div class="form-input-section">
             {{ form.first_name.label }}
             {{ form.first_name(size=30, class="form-field") }}
@@ -13,6 +13,7 @@
                 </div>
             {% endif %}
         </div>
+
         <div class="form-input-section">
             {{ form.last_name.label }}
             {{ form.last_name(size=30, class="form-field") }}
@@ -26,7 +27,7 @@
         </div>
     </div>
 
-    <div class="form-input-collection">
+    <div class="form-input-collection two-col">
         <div class="form-input-section">
             {{ form.email.label }}
             {{ form.email(size=30, class="form-field") }}
@@ -52,13 +53,11 @@
         </div>
     </div>
 
-    <div class="form-input-collection">
+    <div class="form-input-collection two-col">
         <div class="form-input-section">
             {{ form.password.label }}
             {{ form.password(size=30, class="form-field", id="password") }}
-            <ul class="password-strength-output error">
-                
-            </ul>
+            <ul class="password-strength-output error"></ul>
             {% if form.password.errors %}
                 <div class="error">
                     {% for error in form.password.errors %}
@@ -80,5 +79,4 @@
             {% endif %}
         </div>
     </div>
-        
 {% endblock %}

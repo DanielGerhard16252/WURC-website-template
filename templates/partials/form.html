@@ -2,9 +2,17 @@
 {% block fields %}
     {% for field in form %}
         {% if field != form.csrf_token and field != form.submit %}
-            <div class="form-input-section">
-                <label><span>{{ field.label }}</span></label>
-                {{ field(size=30, class="form-field") }}
+    {% if field.type == 'BooleanField' %}
+        <div class="form-input-section checkbox-wrapper">
+            <label class="checkbox-label">
+                {{ field.label }}
+                {{ field() }}
+            </label>
+    {% else %}
+        <div class="form-input-section">
+            <label><span>{{ field.label }}</span></label>
+            {{ field(size=30, class="form-field") }}
+    {% endif %}
                 {% if field.errors %}
                     <div class="error">
                         {% for error in field.errors %}
@@ -19,7 +27,7 @@
 {% endblock %}
 
 {% block submit %}
-    <div>
+    <div class="form-submit-section">
         {{ form.submit(class="submit-button") }}
     </div>
 {% endblock %}

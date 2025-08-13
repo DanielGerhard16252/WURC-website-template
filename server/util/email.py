@@ -20,3 +20,5 @@ def send_email(recipients: List[str], subject: str, template: str):
     )
 
     current_app.mail.send(message)
+
+

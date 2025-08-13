@@ -3,21 +3,44 @@
 {% block title %}News{% endblock %}
 
 {% block content %}
-    <h1>Latest News</h1>
-    <p>Stay updated with the latest news and announcements.</p>
-
-    <div class="tile-list">
-        {% if current_user.is_authenticated %}
-            <p>
-                <a href="{{ url_for('news.create_news') }}" class="btn btn-primary">Create New Post</a>
-            </p>
-        {% endif %}
-        {% for post in posts %}
-            {% include "news/partials/post_tile.html" %}
-        {% endfor %}
+    <div class="news-title-container">
+        <h1>Latest News</h1>
     </div>
+  
 
-    {% if not posts %}
-        <p>No news articles available at the moment.</p>
-    {% endif %}
+  {% if current_user.is_authenticated %}
+    <p>
+      <a href="{{ url_for('news.create_news') }}" class="btn btn-primary">Create New Post</a>
+    </p>
+  {% endif %}
+
+  {% if posts %}
+    <div class="tile-list">
+      {% for row in posts|batch(2) %}
+      {% for post in row %}
+      <div class="news-grid-item">
+        <div class="news-card">
+          {% if post.images %}
+            <img src="/files/{{ post.images[0].filename }}" alt="Preview image for {{ post.title }}">
+          {% else %}
+            <img src="/static/images/logo.png" alt="Default logo for news post">
+          {% endif %}
+
+          <div class="news-info">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.summary or post.article[:50] ~ '...' }}</p>
+            <div class="news-footer">
+              <a href="{{ url_for('news.view_news', post_id=post.id) }}" class="read-more-btn">Read more</a>
+              <span class="news-date">{{ post.created_at | format_datetime }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  
+{% endfor %}
+    </div>
+  {% else %}
+    <p>No news articles available at the moment.</p>
+  {% endif %}
 {% endblock %}
